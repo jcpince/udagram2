@@ -1,0 +1,17 @@
+DOCKER_NET_IF ?= "docker0"
+
+helpers_dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+
+define get_service_path
+$(shell basename $(dir $(abspath $(word $(words ${MAKEFILE_LIST}),$(words ${MAKEFILE_LIST}),1st ${MAKEFILE_LIST}))))
+endef
+
+define increase_ip
+$(shell $(helpers_dir)/increase_ip.sh $1)
+endef
+
+local_ip := $(shell ifconfig | grep -A2 $(DOCKER_NET_IF) | grep -o -E 'inet [0-9\.]+' | sed 's/inet //g')
+reverproxy_ip := $(call increase_ip,$(local_ip))
+feed_docker_ip := $(call increase_ip,$(reverproxy_ip))
+user_docker_ip := $(call increase_ip,$(feed_docker_ip))
+fontend_docker_ip := $(call increase_ip,$(user_docker_ip))
