@@ -6,6 +6,7 @@ SOURCES := $(shell find src -print)
 
 node_modules: package.json
 	npm install
+	npm install -g ionic
 
 www: $(SOURCES)
 	ionic build
