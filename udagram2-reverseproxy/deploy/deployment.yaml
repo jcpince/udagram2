@@ -2,30 +2,30 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: reverse-proxy
-  name: reverse-proxy-svc
+    service: udagram2-reverseproxy
+  name: udagram2-reverseproxy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: reverse-proxy
+      app: udagram2-reverseproxy
   template:
     metadata:
       labels:
-        app: reverse-proxy
-        service: reverse-proxy
+        app: udagram2-reverseproxy
+        service: udagram2-reverseproxy
     spec:
       containers:
-      - image: jcpince/reverse-proxy
-        name: reverse-proxy
-        imagePullPolicy: Always          
+      - image: jcpince/udagram2-reverseproxy
+        name: udagram2-reverseproxy
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "64Mi"
             cpu: "250m"
           limits:
             memory: "1024Mi"
-            cpu: "500m"       
+            cpu: "500m"
         ports:
-        - containerPort: 8080
-      restartPolicy: Always
+        - containerPort: 80
+      #restartPolicy: Always

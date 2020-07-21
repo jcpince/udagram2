@@ -43,3 +43,4 @@ venv/
 .aws
 setenv.sh
 env.docker
+secret.yaml

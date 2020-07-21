@@ -2,12 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: reverse-proxy
-  name: reverse-proxy-svc
+    service: udagram2-reverseproxy
+  name: udagram2-reverseproxy
 spec:
   ports:
-  - name: "8080"
-    port: 8080
-    targetPort: 8080
+  - name: "80"
+    port: 80
+    targetPort: 80
   selector:
-    service: reverse-proxy
+    service: udagram2-reverseproxy

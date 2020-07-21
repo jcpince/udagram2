@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: udagram2-user-api
+  name: udagram2-user-api
+  namespace: default
+  selfLink: /api/v1/namespaces/default/services/udagram2-user-api
+spec:
+  ports:
+  - port: 8081
+    protocol: TCP
+    targetPort: 8081
+  selector:
+    app: udagram2-user-api
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
