@@ -1,3 +1,4 @@
+DOCKER_SHELL ?= sh
 ROOT ?= ..
 
 include $(ROOT)/make/make.helper
@@ -18,16 +19,24 @@ push-docker:
 
 # Workaround because using the address name for the frontend seems to break the connectivity...
 set-native-frontend:
-	sed 's/udagram-frontend/$(local_ip)/g' nginx.template > nginx.conf
+	sed 's/udagram2-frontend/$(local_ip)/g' nginx.template > nginx.conf
 
 set-docker-frontend:
-	sed 's/udagram-frontend/$(fontend_docker_ip)/g' nginx.template > nginx.conf
+	sed 's/udagram2-frontend/$(fontend_docker_ip)/g' nginx.template > nginx.conf
 
 run-native: set-native-frontend docker
-	gnome-terminal -- bash -c "docker run --add-host udagram-feed-api:$(local_ip) --add-host udagram-user-api:$(local_ip) --add-host udagram-frontend:$(local_ip) $(GIT_USER)/$(svc_name):latest; exec bash"
+	gnome-terminal --title=$(svc_name) -- bash -c "docker run \
+		--add-host udagram2-feed-api:$(local_ip) \
+		--add-host udagram2-user-api:$(local_ip) \
+		--add-host udagram2-frontend:$(local_ip) \
+		$(GIT_USER)/$(svc_name):latest; exec bash"
 
 run-docker: set-docker-frontend docker
-	gnome-terminal -- bash -c "docker run --add-host udagram-feed-api:$(feed_docker_ip) --add-host udagram-user-api:$(user_docker_ip) --add-host udagram-frontend:$(fontend_docker_ip) $(GIT_USER)/$(svc_name):latest; exec bash"
+	gnome-terminal --title=$(svc_name) -- bash -c "docker run \
+		--add-host udagram2-feed-api:$(feed_docker_ip) \
+		--add-host udagram2-user-api:$(user_docker_ip) \
+		--add-host udagram2-frontend:$(fontend_docker_ip) \
+		$(GIT_USER)/$(svc_name):latest; exec bash"
 
 restaure-nginx-conf:
 	cp nginx.template nginx.conf

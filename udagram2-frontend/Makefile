@@ -6,7 +6,7 @@ SOURCES := $(shell find src -print)
 
 node_modules: package.json
 	npm install
-	npm install -g ionic
+	npm install ionic
 
 www: $(SOURCES)
 	ionic build
@@ -24,10 +24,13 @@ push-docker:
 	docker push $(GIT_USER)/$(svc_name)
 
 run-native: build
-	gnome-terminal -- bash -c "ionic serve --external; exec bash"
+	gnome-terminal --title=$(svc_name) -- bash -c "ionic serve --external; exec bash"
 
 run-docker: docker
-	gnome-terminal -- bash -c "docker run --env-file $(ROOT)/env.docker $(GIT_USER)/$(svc_name):latest; exec bash"
+	gnome-terminal --title=$(svc_name) -- bash -c "docker run \
+			--add-host udagram2-reverseproxy:$(reverproxy_ip) \
+			--env-file $(ROOT)/env.docker \
+			$(GIT_USER)/$(svc_name):latest; exec bash"
 
 kill-docker:
 	$(helpers_dir)/docker_kill.sh $(svc_name)
@@ -41,4 +44,4 @@ distclean: clean
 	@ echo "$@ $(svc_name)..."
 	rm -fr node_modules
 
-.PHONY: build run-native run-docker kill-docker
+.PHONY: build run-native run-docker kill-docker shell-docker

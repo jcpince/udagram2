@@ -4,19 +4,19 @@ http {
     server {
         listen 8080;
         location /api {
-            proxy_pass http://udagram-feed-api:8080/api;
+            proxy_pass http://udagram2-feed-api:8080/api;
         }
     }
     server {
         listen 8081;
         location /api {
-            proxy_pass http://udagram-user-api:8081/api;
+            proxy_pass http://udagram2-user-api:8081/api;
         }
     }
     server {
         listen 80;
         location / {
-            proxy_pass http://udagram-frontend:8100/;
+            proxy_pass http://udagram2-frontend:8100/;
         }
     }
 }

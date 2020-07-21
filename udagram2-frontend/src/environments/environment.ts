@@ -9,13 +9,13 @@ export const environment = {
   //feedApiHost: 'http://localhost:8080/api/v0',
   //userApiHost: 'http://localhost:8081/api/v0'
   /* docker microservices */
-  //feedApiHost: 'http://172.17.0.2:8080/api/v0',
-  //userApiHost: 'http://172.17.0.3:8081/api/v0'
+  //feedApiHost: 'http://172.17.0.3:8080/api/v0',
+  //userApiHost: 'http://172.17.0.4:8081/api/v0'
   /* remote proxy */
-  //feedApiHost: 'http://172.17.0.5:8080/api/v0',
-  //userApiHost: 'http://172.17.0.5:8081/api/v0'
-  feedApiHost: 'http://udagram-rp:8080/api/v0',
-  userApiHost: 'http://udagram-rp:8081/api/v0'
+  //feedApiHost: 'http://172.17.0.2:8080/api/v0',
+  //userApiHost: 'http://172.17.0.2:8081/api/v0'
+  feedApiHost: 'http://udagram2-reverseproxy:8080/api/v0',
+  userApiHost: 'http://udagram2-reverseproxy:8081/api/v0'
 };
 
 /*

@@ -11,7 +11,7 @@ COPY angular.json ./
 COPY ionic.config.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --no-package-lock
 RUN npm install -g ionic
 
 # Copy app source
@@ -22,5 +22,4 @@ EXPOSE 8100
 
 # Define the Docker image's behavior at runtime
 # CMD ["ionic", "serve", "--external", "--no-open"]
-CMD ["ionic", "serve", "--external"]
-
+CMD ["ionic", "serve", "--external", "--", "--disable-host-check"]

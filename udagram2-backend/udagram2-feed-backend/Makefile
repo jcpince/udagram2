@@ -23,10 +23,11 @@ push-docker:
 	docker push $(GIT_USER)/$(svc_name)
 
 run-native: build
-	gnome-terminal -- bash -c "npm run dev; exec bash"
+	gnome-terminal --title=$(svc_name) -- bash -c "npm run dev; exec bash"
 
 run-docker: docker
-	gnome-terminal -- bash -c "docker run --env-file $(ROOT)/env.docker $(GIT_USER)/$(svc_name):latest; exec bash"
+	gnome-terminal --title=$(svc_name) -- bash -c "docker run \
+		--env-file $(ROOT)/env.docker $(GIT_USER)/$(svc_name):latest; exec bash"
 
 kill-docker:
 	$(helpers_dir)/docker_kill.sh $(svc_name)

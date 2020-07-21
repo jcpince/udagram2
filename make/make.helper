@@ -1,4 +1,5 @@
 DOCKER_NET_IF ?= "docker0"
+DOCKER_SHELL ?= bash
 
 helpers_dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
@@ -15,3 +16,6 @@ reverproxy_ip := $(call increase_ip,$(local_ip))
 feed_docker_ip := $(call increase_ip,$(reverproxy_ip))
 user_docker_ip := $(call increase_ip,$(feed_docker_ip))
 fontend_docker_ip := $(call increase_ip,$(user_docker_ip))
+
+shell-docker:
+	$(helpers_dir)/docker_shell.sh $(svc_name) $(DOCKER_SHELL)
